@@ -1,0 +1,30 @@
+import { CastCard } from 'components/CastCard/CastCard';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getCastById } from 'services/theMoviesDbAPI';
+
+export const CastPage = () => {
+  const [cast, setCast] = useState([]);
+  const { movieId } = useParams();
+  useEffect(() => {
+    getCastById(movieId)
+      .then(response => response.data.cast)
+      .then(setCast);
+  }, [movieId]);
+
+  return (
+    cast.length && (
+      <ul>
+        {cast.map(actor => (
+          <li key={actor.cast_id}>
+            <CastCard
+              photoPath={actor.profile_path}
+              name={actor.name}
+              character={actor.character}
+            />
+          </li>
+        ))}
+      </ul>
+    )
+  );
+};
