@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useParams,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import { getMovieDetailsById } from 'services/theMoviesDbAPI';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/movies';
   useEffect(() => {
     getMovieDetailsById(movieId).then(setMovie);
   }, [movieId]);
   return (
     movie && (
       <>
-        <button
-          type="button"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          Go Back
-        </button>
+        <Link to={backLinkHref}>Go back</Link>
+
         <div>
           {movie.poster_path ? (
             <img

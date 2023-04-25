@@ -1,16 +1,17 @@
-import { Route, Routes, NavLink, Navigate } from 'react-router-dom';
+import { Route, Routes, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { lazy, Suspense } from 'react';
 /**
  * Components
  */
-const CastPage = lazy(() => import('pages/CastPage/CastPage'));
+const CastPage = lazy(() => import('components/CastPage/CastPage'));
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const MoviesPage = lazy(() => import('pages/MoviesPage/MoviesPage'));
 const MovieDetails = lazy(() =>
   import('pages/MovieDetailsPage/MovieDetailsPage')
 );
-const ReviewsPage = lazy(()=> import('pages/ReviewsPage/ReviewsPage'))
+const ReviewsPage = lazy(() => import('components/ReviewsPage/ReviewsPage'));
+
 export const App = () => {
   return (
     <>
@@ -21,8 +22,6 @@ export const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-
-          <Route path="goit-react-hw-05-movies" element={<Navigate to="/" />} />
           <Route path="movies" element={<MoviesPage />} />
           <Route path="movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<CastPage />} />

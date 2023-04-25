@@ -12,21 +12,21 @@ const CastPage = () => {
       .then(setCast);
   }, [movieId]);
 
-  return (
-    cast.length && (
-      <ul>
-        {cast.map(actor => (
-          <li key={actor.cast_id}>
-            <CastCard
-              photoPath={actor.profile_path}
-              name={actor.name}
-              character={actor.character}
-              gender={actor.gender}
-            />
-          </li>
-        ))}
-      </ul>
-    )
+  return cast.length ? (
+    <ul>
+      {cast.map(actor => (
+        <li key={actor.cast_id}>
+          <CastCard
+            photoPath={actor.profile_path}
+            name={actor.name}
+            character={actor.character}
+            gender={actor.gender}
+          />
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>Sorry, we don't have any information about cast for this movie</p>
   );
 };
 
