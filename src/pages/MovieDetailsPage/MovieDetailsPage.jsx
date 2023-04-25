@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Link,
-  Outlet,
-  useParams,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetailsById } from 'services/theMoviesDbAPI';
 
 const MovieDetails = () => {
