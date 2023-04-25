@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCastById } from 'services/theMoviesDbAPI';
 
-export const CastPage = () => {
+const CastPage = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
   useEffect(() => {
@@ -21,6 +21,7 @@ export const CastPage = () => {
               photoPath={actor.profile_path}
               name={actor.name}
               character={actor.character}
+              gender={actor.gender}
             />
           </li>
         ))}
@@ -28,3 +29,5 @@ export const CastPage = () => {
     )
   );
 };
+
+export default CastPage;

@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
 import { getMovieDetailsById } from 'services/theMoviesDbAPI';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
     getMovieDetailsById(movieId).then(setMovie);
   }, [movieId]);
   return (
     movie && (
       <>
-        {' '}
+        <button
+          type="button"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          Go Back
+        </button>
         <div>
           {movie.poster_path ? (
             <img
@@ -52,3 +60,4 @@ export const MovieDetails = () => {
     )
   );
 };
+export default MovieDetails;

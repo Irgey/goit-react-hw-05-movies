@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviewsById } from 'services/theMoviesDbAPI';
 
-export const ReviewsPage = () => {
+const ReviewsPage = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
   useEffect(() => {
@@ -14,7 +14,7 @@ export const ReviewsPage = () => {
   return reviews.length ? (
     <ul>
       {reviews.map(review => (
-        <li>
+        <li key={review.id}>
           <ReviewCard author={review.author} review={review.content} />
         </li>
       ))}
@@ -23,3 +23,4 @@ export const ReviewsPage = () => {
     <p>Sorry, we don't have any reviews for this movie</p>
   );
 };
+export default ReviewsPage;

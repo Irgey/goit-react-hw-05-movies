@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getTrendingMovies } from 'services/theMoviesDbAPI';
-export const HomePage = () => {
+const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   useEffect(() => {
     getTrendingMovies()
@@ -23,3 +23,4 @@ export const HomePage = () => {
     </div>
   );
 };
+export default HomePage;

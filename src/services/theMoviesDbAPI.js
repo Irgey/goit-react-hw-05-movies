@@ -24,3 +24,7 @@ export const getReviewsById = id => {
     `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${API_KEY}`
   );
 };
+export const searchMovieByKeyword = keyword => {
+  return axios.get(`
+https://api.themoviedb.org/3/search/movie?query=${keyword}&api_key=${API_KEY}`);
+};

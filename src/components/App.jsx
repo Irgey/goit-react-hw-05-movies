@@ -1,14 +1,16 @@
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes, NavLink, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { lazy, Suspense } from 'react';
 /**
  * Components
  */
-import { CastPage } from 'pages/CastPage/CastPage';
-import { HomePage } from 'pages/HomePage/HomePage';
-import { MoviesPage } from 'pages/MoviesPage/MoviesPage';
-import { MovieDetails } from 'pages/MovieDetailsPage/MovieDetailsPage';
-import { ReviewsPage } from 'pages/ReviewsPage/ReviewsPage';
-
+const CastPage = lazy(() => import('pages/CastPage/CastPage'));
+const HomePage = lazy(() => import('pages/HomePage/HomePage'));
+const MoviesPage = lazy(() => import('pages/MoviesPage/MoviesPage'));
+const MovieDetails = lazy(() =>
+  import('pages/MovieDetailsPage/MovieDetailsPage')
+);
+const ReviewsPage = lazy(()=> import('pages/ReviewsPage/ReviewsPage'))
 export const App = () => {
   return (
     <>
@@ -16,26 +18,31 @@ export const App = () => {
         <StyledNavLink to="/">Home</StyledNavLink>
         <StyledNavLink to="/movies">Movies</StyledNavLink>
       </StyledNav>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="movies" element={<MoviesPage />} />
-        <Route path="movies/:movieId" element={<MovieDetails />}>
-          <Route path="cast" element={<CastPage />} />
-          <Route path="reviews" element={<ReviewsPage />} />
-        </Route>
-        <Route
-          path="*"
-          element={
-            <>
-              {' '}
-              <h2>
-                Whoops! 404.The requested URL/error was not found on this server
-              </h2>{' '}
-              <StyledNavLink to="/">Go Home</StyledNavLink>
-            </>
-          }
-        />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+
+          <Route path="goit-react-hw-05-movies" element={<Navigate to="/" />} />
+          <Route path="movies" element={<MoviesPage />} />
+          <Route path="movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<CastPage />} />
+            <Route path="reviews" element={<ReviewsPage />} />
+          </Route>
+          <Route
+            path="*"
+            element={
+              <>
+                {' '}
+                <h2>
+                  Whoops! 404.The requested URL/error was not found on this
+                  server
+                </h2>{' '}
+                <StyledNavLink to="/">Go Home</StyledNavLink>
+              </>
+            }
+          />
+        </Routes>
+      </Suspense>
     </>
   );
 };
